@@ -33,8 +33,8 @@ module TA_TEST;
         for (i = 0; i < 25; i = i + 1) begin
             for (j = 0; j < 8; j = j + 1) begin
                 control = controlValue[j];
-                a = $mti_random();
-                b = (j==7) ? ($mti_random()%32) : $mti_random();
+                a = $urandom;
+                b = (j==7) ? ($urandom%32) : $urandom;
                 #1;
                 case (control)
                     0: result = a & b;
