@@ -3,7 +3,7 @@
     {
       "name": "test",
       "setup": "sudo apt install iverilog; sudo -H pip3 install pytest; pip install pyverilog",
-      "run": "python hello_test.py TA_TEST.v",
+      "run": "iverilog TA_TEST.v -o TA_TEST; vvp TA_TEST",
       "input": "",
       "output": "",
       "comparison": "included",
