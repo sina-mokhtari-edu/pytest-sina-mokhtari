@@ -2,8 +2,8 @@
   "tests": [
     {
       "name": "test",
-      "setup": "sudo apt install iverilog; iverilog TA_TEST.v",
-      "run": "./a.out",
+      "setup": "sudo apt install iverilog",
+      "run": " iverilog TA_TEST.v; ./a.out",
       "input": "",
       "output": "",
       "comparison": "included",
