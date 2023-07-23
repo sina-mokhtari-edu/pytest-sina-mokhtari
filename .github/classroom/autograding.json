@@ -1,9 +1,9 @@
 {
   "tests": [
     {
-      "name": "test",
+      "name": "install",
       "setup": "",
-      "run": "pytest",
+      "run": "sudo -H pip3 install pytest;sudo pip3 install pytest jinja2 ply pytest-pythonpath;sudo apt install iverilog; python Pyverilog/setup.py install",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -11,9 +11,9 @@
       "points": null
     },
     {
-      "name": "install",
+      "name": "test",
       "setup": "",
-      "run": "sudo -H pip3 install pytest;sudo pip3 install pytest jinja2 ply pytest-pythonpath;sudo apt install iverilog; python Pyverilog/setup.py install",
+      "run": "pytest",
       "input": "",
       "output": "",
       "comparison": "included",
