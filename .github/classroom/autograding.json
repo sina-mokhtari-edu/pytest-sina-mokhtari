@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "test",
-      "setup": "sudo apt install iverilog; sudo -H pip3 install pytest jinja2 ply pytest-pythonpath; python3 setup.py install",
+      "setup": "sudo apt install iverilog; sudo -H pip3 install pytest jinja2 ply pytest-pythonpath; git clone https://github.com/PyHDI/Pyverilog.git; cd Pyverilog; python3 setup.py install; cd ..",
       "run": "pytest",
       "input": "",
       "output": "",
