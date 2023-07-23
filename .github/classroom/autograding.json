@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "test",
-      "setup": "sudo -H pip3 install pytest __future__ sys os json from optparse import OptionParser pyverilog.utils.version pyverilog.vparser.parser contextlib",
+      "setup": "sudo apt install iverilog; sudo -H pip3 install pytest jinja2 ply pytest-pythonpath; python3 setup.py install",
       "run": "pytest",
       "input": "",
       "output": "",
