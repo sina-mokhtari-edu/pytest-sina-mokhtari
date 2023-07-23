@@ -2,8 +2,18 @@
   "tests": [
     {
       "name": "test",
-      "setup": "sudo -H pip3 install pytest jinja2 ply pytest-pythonpath;sudo apt install iverilog; python Pyverilog/setup.py install",
+      "setup": "",
       "run": "pytest",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": null
+    },
+    {
+      "name": "install",
+      "setup": "",
+      "run": "sudo -H pip3 install pytest;sudo pip3 install pytest jinja2 ply pytest-pythonpath;sudo apt install iverilog; python Pyverilog/setup.py install",
       "input": "",
       "output": "",
       "comparison": "included",
