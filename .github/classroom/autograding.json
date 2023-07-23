@@ -3,7 +3,7 @@
     {
       "name": "test",
       "setup": "sudo -H pip3 install pytest; pip install pyverilog",
-      "run": "pytest",
+      "run": "python hello_test.py",
       "input": "",
       "output": "",
       "comparison": "included",
