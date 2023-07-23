@@ -2,13 +2,13 @@
   "tests": [
     {
       "name": "test",
-      "setup": "sudo -H pip3 install pytest",
+      "setup": "sudo -H pip3 install pytest __future__ sys os json from optparse import OptionParser pyverilog.utils.version pyverilog.vparser.parser contextlib",
       "run": "pytest",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": null
+      "points": 100
     }
   ]
 }
