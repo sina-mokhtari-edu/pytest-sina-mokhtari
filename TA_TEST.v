@@ -1,91 +1,83 @@
 `define p 100
 module TA_TEST;
 	
-	integer total = 1024 + 2*38, correct = 0, i, j;
+	integer total = 25*8*2, correct = 0, i = 0, j = 0;
 	real point;
 	
-    reg clk, write, read;
-    reg [9:0] addr;
-    reg [31:0] wrdata;
-    wire [31:0] rddata;
+    reg [3:0] control;
+    reg [31:0] a, b, result;
     
-    mem mem1 (
-        .clk (clk),
-        .write (write),
-        .read (read),
-        .addr (addr),
-        .wrdata (wrdata),
-        .rddata (rddata)
+    wire [31:0] c;
+    wire zero;
+
+    reg [3:0] controlValue [7:0];
+    
+    alu alu1 (
+        .control (control),
+        .a (a),
+        .b (b),
+        .c (c),
+        .zero (zero)
     );
     
-    initial clk = 1'b0;
-    always #(`p/2) clk = ~clk;
-    
-    reg [7:0] temp [3:0];
-    
-    integer multFactor [3:0];
-    reg [1:0] wasReset;
-	initial
-	begin
-        multFactor [0] = 13;
-        multFactor [1] = 17;
-        multFactor [2] = 23;
-        multFactor [3] = 7;
+    initial begin
+        controlValue[0] = 0;
+        controlValue[1] = 1;
+        controlValue[2] = 2;
+        controlValue[3] = 3;
+		controlValue[4] = 4;
+		controlValue[5] = 5;
+		controlValue[6] = 6;
+		controlValue[7] = 7;
         
-        write = 1'b1;
-        read = 1'b0;
-        for (i = 0; i < 1024; i = i + 4) begin
-            addr = i;
-            temp[0] = ((13*i) % 1097)%(2**8);
-            temp[1] = ((17*(i+1)) % 1097)%(2**8);
-            temp[2] = ((23*(i+2)) % 1097)%(2**8);
-            temp[3] = ((7*(i+3)) % 1097)%(2**8);
-            wrdata = {temp[3], temp[2], temp[1], temp[0]};
-            #(`p);
-		end
-        
-        write = 1'b0;
-        read = 1'b1;
-        for (i = 0; i < 1024; i = i + 1) begin
-            addr = i;
-            temp[0] = (((multFactor[i%4]*i) % 1097)%(2**8));
-            #(1);
-            if (rddata [7:0] == temp[0])
-                correct = correct + 1;
-            #(1);
-		end
-        
-        write = 1'b0;
-        read = 1'b0;
-        wasReset = 1'b1;
-        for (i = 0; i < 1024; i = i + 1) begin
-            addr = i;
-            #(1);
-            if (rddata != 0)
-                wasReset = 1'b0;
-            #(1);
-		end
-        if (wasReset)
-            correct = correct + 38;
-        
-        write = 1'b1;
-        read = 1'b1;
-        wasReset = 1'b1;
-        for (i = 0; i < 1024; i = i + 1) begin
-            addr = i;
-            #(1);
-            if (rddata != 0)
-                wasReset = 1'b0;
-            #(1);
-		end
-        if (wasReset)
-            correct = correct + 38;
-        
-		#(`p);
+        for (i = 0; i < 25; i = i + 1) begin
+            for (j = 0; j < 8; j = j + 1) begin
+                control = controlValue[j];
+                a = $urandom ();
+                b = (j==7) ? ($urandom ()%32) : $urandom();
+                #1;
+                case (control)
+                    0: result = a & b;
+					1: result = a | b;
+					2: result = a + b;
+					3: result = a ^ b;
+					4: result = a << b;
+					5: result = a >> b;
+					6: result = a - b;
+					7: result = $signed(a) >>> b;
+				endcase
+				if (result == c)
+					correct = correct + 1;
+				if (c == 0 && zero == 1)
+					correct = correct + 1;
+				else if (c != 0 && zero == 0)
+					correct = correct + 1;
+				#9;
+            end
+        end
+		
+		#(`p);		
 		point = correct * 100 / total;
 		$display ("grade: %f", point);
 		$finish;
 	end
 	
 	
+endmodule
+
+module alu (input [3:0] control, input [31:0] a, input [31:0] b, output reg [31:0] c, output zero);
+    
+    assign zero = (c == 32'd0 ? 1'b1 : 1'b0);
+    
+    always @(*)
+        case (control)
+            0: c = a & b;
+            1: c = a | b;
+            2: c = a + b;
+			3: c = a ^ b;
+			4: c = a << b;
+			5: c = a >> b;
+            6: c = a - b;
+			7: c = a >>> b;
+        endcase
 endmodule
