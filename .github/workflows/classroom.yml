@@ -18,7 +18,7 @@ jobs:
 #         with:
 #           packages: iverilog
 #           version: 1.0
-      - uses: tecolicom/actions-use-apt-tools@v1
+      - uses: tecolicom/actions-use-apt-tools@latest
         with:
           tools: iverilog
       
