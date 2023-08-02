@@ -12,5 +12,7 @@ jobs:
     name: Autograding
     runs-on: ubuntu-latest
     steps:
+      - name: install verilog simulator
+        run: sudo apt update; sudo apt install iverilog
       - uses: actions/checkout@v2
       - uses: education/autograding@v1
