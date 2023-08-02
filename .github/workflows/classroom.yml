@@ -18,6 +18,7 @@ jobs:
         with:
           packages: iverilog
           version: 1.0
+          execute_install_scripts: true
 #       - name: Install verilog simulator
 #         if: steps.cache-apt.outputs.cache-hit != 'true'
 #         run: |
