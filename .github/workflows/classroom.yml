@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install verilog simulator
-        run: sudo apt update; sudo apt install iverilog
+        run: |
+          sudo apt update
+          sudo apt install iverilog
       - uses: actions/checkout@v2
       - uses: education/autograding@v1
