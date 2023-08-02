@@ -14,9 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - uses: awalsh128/cache-apt-pkgs-action@latest
+#       - uses: awalsh128/cache-apt-pkgs-action@latest
+#         with:
+#           packages: iverilog
+#           version: 1.0
+      - uses: tecolicom/actions-use-apt-tools@v1
         with:
-          packages: iverilog
-          version: 1.0
+          tools: iverilog
       
       - uses: education/autograding@v1
