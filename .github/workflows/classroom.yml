@@ -14,17 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Cache apt packages
-        id: cache-apt
-        uses: actions/cache@v2
+      - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          path: /var/cache/apt/archives
-          key: apt-packages-${{ runner.os }}-${{ hashFiles('**/apt-requirements.txt') }}
-
-      - name: Install verilog simulator
-        if: steps.cache-apt.outputs.cache-hit != 'true'
-        run: |
-          sudo apt-get update
-          sudo apt-get install iverilog
+          packages: iverilog
+          version: 1.0
+#       - name: Install verilog simulator
+#         if: steps.cache-apt.outputs.cache-hit != 'true'
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install iverilog
       
       - uses: education/autograding@v1
